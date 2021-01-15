@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "djancial"
+version = "0.1.0"
+description = "Django social network"
+authors = ["meeeeeeeh <alexanderkarpovich78@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Django = "^3.1.5"
+djangorestframework = "^3.12.2"
+Pillow = "^8.1.0"
+psycopg2-binary = "^2.8.6"
+djoser = "^2.1.0"
+djangorestframework-simplejwt = "^4.6.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

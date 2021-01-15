@@ -1,0 +1,35 @@
+version: '3.7'
+
+
+services:
+  db:
+    container_name: djacial
+    image: postgres:12
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_DB=djacial
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=djacial
+      - POSTGRES_HOST=djacial-db
+    restart: always
+    volumes:
+    - postgres_data:/var/lib/postgresql/data
+
+
+
+  app:
+    restart: on-failure
+
+    build: .
+    container_name: app_djacial
+    command: python manage.py runserver 0.0.0.0:8000
+
+    volumes:
+    - .:/usr/src/app/
+    ports:
+    - 8000:8000
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:

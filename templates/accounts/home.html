@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+        {{ user.username }}
+        <img src="{{ user.userprofile.profile_image.url }}">
+        <a href="{% url 'accounts:logout' %}">logout</a>
+         <form method="post" action="{% url 'newsfeed:post-create' %}">
+             {% csrf_token %}
+             <textarea rows="2" name="body" placeholder="Write something"></textarea>
+             <button type="submit">Post</button>
+         </form>
+    {% endif %}
+</body>
+</html>
