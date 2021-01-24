@@ -13,7 +13,7 @@ class UserProfile(models.Model):
     about = models.TextField(max_length=56, blank=True)
 
     def __str__(self):
-        return self.user
+        return self.user.username
 
 
 @receiver(post_save, sender=CustomUser)

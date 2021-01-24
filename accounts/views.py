@@ -38,17 +38,5 @@ class UserLoginView(views.LoginView):
     template_name = 'accounts/login.html'
 
 
-def home(request):
-    if not request.user.is_authenticated:
-        return redirect(reverse_lazy('accounts:login'))
-
-    return render(request, 'accounts/home.html')
 
 
-# class UserLogoutView(generic.RedirectView):
-#     url = reverse_lazy('accounts:home')
-#
-#     def get(self, request, *args, **kwargs):
-#         auth.logout(request)
-#         messages.success(request, 'Вы вышли из аккаунта.')
-#         return super(UserLogoutView, self).get(request, *args, *kwargs)

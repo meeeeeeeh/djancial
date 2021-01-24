@@ -1,19 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    {% if user.is_authenticated %}
-        {{ user.username }}
-        <img src="{{ user.userprofile.profile_image.url }}">
-        <a href="{% url 'accounts:logout' %}">logout</a>
-         <form method="post" action="{% url 'newsfeed:post-create' %}">
-             {% csrf_token %}
-             <textarea rows="2" name="body" placeholder="Write something"></textarea>
-             <button type="submit">Post</button>
-         </form>
-    {% endif %}
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    {% for post in posts %}
+        <p><img src="{{post.user.userprofile.profile_image.url}}" width="20" height="20">{{post.user.username}}</p>
+        <div class="description">
+            <p style="font-size: 25px; font-weight: bold">{{ post.body }}</p>
+        </div>
+        <form method="post" action="{% url 'newsfeed:comment-create' post.id%}">
+            {% csrf_token %}
+            <input placeholder="Post your comment" name="content">
+        </form>
+        <div class="coment-area">
+                                                    <ul class="we-comet">
+                                                        {% for comment in post.comments.all %}
+                                                            <li>
+                                                                <div class="comet-avatar">
+                                                                    <img src="{% static 'images/comment.jpg' %}" alt="" style="width: 50px; height: 50px">
+                                                                </div>
+                                                                <div class="we-comment">
+                                                                    <div class="coment-head">
+                                                                        <h5><a href="time-line.html" title="">{{ comment.user.username }}</a></h5>
+                                                                        <span>{{ comment.created_at|timesince }} ago</span>
+                                                                    </div>
+                                                                    <p>{{ comment.content }}</p>
+                                                                </div>
+                                                            </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+    {% endfor %}
+
+    <form method="post" action="{% url 'newsfeed:post-create' %}">
+        {% csrf_token %}
+        <textarea rows="2" name="body" placeholder="Write something"></textarea>
+        <button type="submit">Post</button>
+    </form>
+{% endblock %}

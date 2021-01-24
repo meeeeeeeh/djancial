@@ -10,7 +10,7 @@ class PostCreateView(CreateView):
     http_method_names = ['post']
     form_class = PostCreateForm
     template_name = 'home.html'
-    success_url = reverse_lazy('accounts:home')
+    success_url = reverse_lazy('home:home')
 
     def form_valid(self, form):
         if self.request.user.is_authenticated:
@@ -19,7 +19,7 @@ class PostCreateView(CreateView):
 
     def form_invalid(self, form):
         print(form.errors)
-        return redirect(reverse_lazy('accounts:home'))
+        return redirect(reverse_lazy('home:home'))
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
@@ -35,6 +35,6 @@ def create_comment(request, post_id=None):
     if request.method == "POST":
         post = Post.objects.get(id=post_id)
         comment = post.comments.create(user=request.user, content=request.POST.get('content'))
-        return redirect(reverse_lazy('accounts:home'))
+        return redirect(reverse_lazy('home:home'))
     else:
-        return redirect(reverse_lazy('accounts:home'))
+        return redirect(reverse_lazy('home:home'))
