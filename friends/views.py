@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from django.views.generic import ListView
 from .serializers import NotificationSerializer
 from .models import *
+from accounts.models import CustomUser
 
 
 class FindFriendsListView(ListView):
@@ -14,11 +15,22 @@ class FindFriendsListView(ListView):
 
     def get_queryset(self):
         current_user_friends = self.request.user.friends.values('id')
-        sent_request = list(Friend.objects.filter(current_user=self.request.user).values_list('current_user_id',
-                                                                                              flat=True))
-        users = CustomUser.objects.exclude(id__in=current_user_friends).exclude(id__in=sent_request). \
-            exclude(id=self.request.user.id)
+        sent_request = list(Friend.objects.filter(users=self.request.user).values_list('current_user_id', flat=True))
+        users = CustomUser.objects.exclude(id__in=current_user_friends).exclude(id__in=sent_request).exclude(
+            id=self.request.user.id)
         return users
+
+
+class AcceptFriendsListView(ListView):
+    context_object_name = 'friends'
+    template_name = 'friends/accept-friends.html'
+
+    def get_queryset(self):
+        current_user_friends = self.request.user.friends.filter(status='friend').values('id')
+        friends = self.request.user.friends.filter(current_user=self.request.user, status='requested').exclude(
+            id__in=current_user_friends).exclude(id=self.request.user.id)
+        return friends
+
 
 
 def send_request(request, username=None):
@@ -51,6 +63,7 @@ def accept_request(request, friend=None):
         current_user = request.user
         f = Friend.objects.filter(users=friend_user, current_user=current_user, status='requested')[0]
         f.status = "friend"
+        Friend.objects.create(users=current_user, current_user=friend_user, status='friend')
         f.save()
         CustomNotification.objects.filter(recipient=current_user, actor=friend_user).delete()
         data = {

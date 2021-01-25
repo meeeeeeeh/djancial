@@ -15,30 +15,31 @@
                                 <div class="central-meta">
                                     <div class="frnds">
                                         <ul class="nav nav-tabs">
-                                            <li class="nav-item"><a class="active" href="#frends" data-toggle="tab">Find Friends</a></li>
+                                            <li class="nav-item"><a class="active" href="#frends" data-toggle="tab">Friend requests</a></li>
                                         </ul>
 
                                         <div class="tab-content">
                                             <div class="tab-pane active fade show " id="frends">
                                                 <ul class="nearby-contct">
 
-                                                    {% for user in users %}
+                                                    {% for friend in friends %}
 
-
-                                                        <li>
+                                                            <li>
 
                                                             <div class="nearly-pepls">
 
 
                                                                 <div class="pepl-info">
-                                                                    <h4><a href="#" title="">{{ user.username }}</a></h4>
-                                                                    <a href="#" title="" data-url="{% url 'friends:send-request' user.username %}" class="add-butn add-friend" data-ripple="" data-friend="{{ user.username }}">Add Friend</a>
+                                                                    <h4><a href="#" title="">{{ friend.users.username }}</a></h4>
+                                                                    <a href="#" title="" data-url="{% url 'friends:accept-request' friend.users.username %}" class="add-butn add-friend" data-ripple="" data-friend="{{ friend.users.username }}">Accept</a>
                                                                 </div>
 
                                                             </div>
+                                                            </li>
+
+                                                            <li>
+
                                                         </li>
-
-
                                                     {% endfor %}
                                                 </ul>
 

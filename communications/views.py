@@ -10,9 +10,9 @@ from friends.models import Friend
 
 
 def all_messages(request):
-    friends_one = Friend.objects.filter(users=request.user, status='friend')
-    friends_two = Friend.objects.filter(current_user=request.user, status='friend')
-    friends = friends_one | friends_two
+
+    friends = Friend.objects.filter(current_user=request.user, status='friend')
+
     return render(request, "communications/all-messages.html", {'friends': friends})
 
 
