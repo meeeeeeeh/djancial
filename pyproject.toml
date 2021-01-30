@@ -41,6 +41,7 @@ txaio = "^20.12.1"
 gunicorn = "^20.0.4"
 whitenoise = "^5.2.0"
 redis = "^3.5.3"
+django-elasticsearch-dsl = "^7.1.4"
 
 [tool.poetry.dev-dependencies]
 

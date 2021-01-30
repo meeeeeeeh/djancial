@@ -20,16 +20,16 @@
 
                                         <div class="tab-content">
                                             <div class="tab-pane active fade show " id="frends">
+                                                <form method="get" action="/search/">
+                                                    <input id="q" name="q" type="text" placeholder="search...">
+                                                    <input type="submit" value="search">
+                                                </form>
+                                                {% if 'q' in request.GET %}
                                                 <ul class="nearby-contct">
 
-                                                    {% for user in users %}
-
-
+                                                    {% for user in users_search %}
                                                         <li>
-
                                                             <div class="nearly-pepls">
-
-
                                                                 <div class="pepl-info">
                                                                     <h4><a href="#" title="">{{ user.username }}</a></h4>
                                                                     <a href="#" title="" data-url="{% url 'friends:send-request' user.username %}" class="add-butn add-friend" data-ripple="" data-friend="{{ user.username }}">Add Friend</a>
@@ -41,6 +41,24 @@
 
                                                     {% endfor %}
                                                 </ul>
+                                                {% else %}
+                                                <ul class="nearby-contct">
+
+                                                    {% for user in users %}
+                                                        <li>
+                                                            <div class="nearly-pepls">
+                                                                <div class="pepl-info">
+                                                                    <h4><a href="#" title="">{{ user.username }}</a></h4>
+                                                                    <a href="#" title="" data-url="{% url 'friends:send-request' user.username %}" class="add-butn add-friend" data-ripple="" data-friend="{{ user.username }}">Add Friend</a>
+                                                                </div>
+
+                                                            </div>
+                                                        </li>
+
+
+                                                    {% endfor %}
+                                                </ul>
+                                                {% endif %}
 
                                             </div>
                                         </div>

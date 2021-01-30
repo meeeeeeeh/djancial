@@ -1,4 +1,3 @@
-
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -12,7 +11,6 @@ urlpatterns = [
     path('home/', include('home.urls')),
     path('timeline/', include('userprofile.urls')),
     path('messages/', include('communications.urls')),
-
 ]
 
 if settings.DEBUG:

@@ -32,7 +32,6 @@ class AcceptFriendsListView(ListView):
         return friends
 
 
-
 def send_request(request, username=None):
     if username is not None:
         friend_user = CustomUser.objects.get(username=username)
