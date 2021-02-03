@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include('accounts.urls')),
     path('', include('newsfeed.urls')),
     path('', include('friends.urls')),
+    path('', include('todolist.urls')),
     path('home/', include('home.urls')),
     path('timeline/', include('userprofile.urls')),
     path('messages/', include('communications.urls')),

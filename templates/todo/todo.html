@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<p style="margin-left:10px">Add Notes</p>
+<div style="border:solid; color:grey; width:720px; margin-left:10px">
+<form method="post" action="{% url 'todo:todo-create' %}" style="margin-left:5px; margin-top:2px">
+    {% csrf_token %}
+    <p><input type="text" name="title"></p>
+    <p><input type="date" name="date"></p>
+    <p><textarea rows="3" style="width:700px" name="content" placeholder="Write something"></textarea></p>
+    <button type="submit">Add Note</button>
+</form>
+</div>
+
+{% for todo in todos %}
+<br/>
+<div style="border:solid; color:grey; width:200px; margin-left:10px">
+    <p style="margin-left:3px">{{todo.title}}</p>
+    <p style="margin-left:3px">{{todo.content}}</p>
+    <p style="margin-left:3px">{{todo.date}}</p>
+    <p><a href="{% url 'todo:todo-delete' todo.pk %}">Delete</a></p>
+</div>
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

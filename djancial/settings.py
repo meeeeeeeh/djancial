@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'notifications',
     'communications',
     'search',
+    'todolist',
 ]
 
 ELASTICSEARCH_DSL = {

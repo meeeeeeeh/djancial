@@ -14,23 +14,23 @@
             <input placeholder="Post your comment" name="content">
         </form>
         <div class="coment-area">
-                                                    <ul class="we-comet">
-                                                        {% for comment in post.comments.all %}
-                                                            <li>
-                                                                <div class="comet-avatar">
-                                                                    <img src="{% static 'images/comment.jpg' %}" alt="" style="width: 50px; height: 50px">
-                                                                </div>
-                                                                <div class="we-comment">
-                                                                    <div class="coment-head">
-                                                                        <h5><a href="time-line.html" title="">{{ comment.user.username }}</a></h5>
-                                                                        <span>{{ comment.created_at|timesince }} ago</span>
-                                                                    </div>
-                                                                    <p>{{ comment.content }}</p>
-                                                                </div>
-                                                            </li>
-                                                        {% endfor %}
-                                                    </ul>
-                                                </div>
+            <ul class="we-comet">
+                {% for comment in post.comments.all %}
+                <li>
+                    <div class="comet-avatar">
+                        <img src="{% static 'images/comment.jpg' %}" alt="" style="width: 50px; height: 50px">
+                    </div>
+                    <div class="we-comment">
+                        <div class="coment-head">
+                            <h5><a href="time-line.html" title="">{{ comment.user.username }}</a></h5>
+                            <span>{{ comment.created_at|timesince }} ago</span>
+                        </div>
+                        <p>{{ comment.content }}</p>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
     {% endfor %}
 
     <form method="post" action="{% url 'newsfeed:post-create' %}">
