@@ -1,10 +1,11 @@
 from django.db import models
 from accounts.models import CustomUser
 from django.utils.timezone import now
+from datetime import datetime
 
 
 class TodoList(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="todo")
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="todo",)
     title = models.CharField(max_length=250)
     content = models.TextField(blank=True)
     created = models.DateField(default=now)

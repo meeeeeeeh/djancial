@@ -4,6 +4,8 @@ from django.views.generic import CreateView
 from .models import TodoList
 from .forms import ToDoCreateFrom
 from django.shortcuts import get_object_or_404
+from .tasks import send_notification_email
+from datetime import datetime
 
 
 class ToDoCreateView(CreateView):
@@ -42,3 +44,5 @@ def delete_todo(request, pk):
     get_object_or_404(TodoList, pk=pk).delete()
     return redirect('todo:todo')
 
+
+send_notification_email.delay()
