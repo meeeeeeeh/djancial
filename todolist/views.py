@@ -6,6 +6,7 @@ from .forms import ToDoCreateFrom
 from django.shortcuts import get_object_or_404
 from .tasks import send_notification_email
 from datetime import datetime
+from notifications.models import Notification
 
 
 class ToDoCreateView(CreateView):
@@ -45,4 +46,16 @@ def delete_todo(request, pk):
     return redirect('todo:todo')
 
 
-send_notification_email.delay()
+def todo_notifications_list(request):
+    if not request.user.is_authenticated:
+        return redirect(reverse_lazy('accounts:login'))
+    todo_notifications = Notification.objects.filter(user=request.user)
+    return render(request, 'todo/notifications.html', {'todo_notifications': todo_notifications})
+
+
+def delete_notification(request, pk):
+    get_object_or_404(Notification, pk=pk).delete()
+    return redirect('todo:todo_notifications')
+
+
+send_notification_email.apply_async()

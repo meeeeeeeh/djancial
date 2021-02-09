@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+{% for notif in todo_notifications %}
+<br/>
+<div style="border:solid; color:grey; width:200px; margin-left:10px">
+    <p style="margin-left:3px">{{notif.todo.title}}</p>
+    <p style="margin-left:3px">{{notif.todo.content}}</p>
+    <p style="margin-left:3px">{{notif.todo.date}}</p>
+    <p><a href="{% url 'todo:delete_todo_notification' notif.pk %}">Delete</a></p>
+</div>
+{% endfor %}
+
+
+{% endblock %}
+
