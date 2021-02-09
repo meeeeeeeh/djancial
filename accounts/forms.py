@@ -5,14 +5,14 @@ from accounts.models import CustomUser
 
 class SignUpForm(UserCreationForm):
     GENDER_CHOICE = (
-        ("Male", "Мужской"),
-        ("Female", "Женский")
+        ("Male", "Male"),
+        ("Female", "Female")
     )
-    username = forms.CharField(label="Имя пользователя")
+    username = forms.CharField(label="Username")
     email = forms.EmailField(label="E-mail")
-    gender = forms.ChoiceField(choices=GENDER_CHOICE, label="Пол")
-    password1 = forms.CharField(label="Пароль", widget=forms.PasswordInput())
-    password2 = forms.CharField(label="Повторите пароль", widget=forms.PasswordInput())
+    gender = forms.ChoiceField(choices=GENDER_CHOICE, label="Gender")
+    password1 = forms.CharField(label="Password", widget=forms.PasswordInput())
+    password2 = forms.CharField(label="Confirm Password", widget=forms.PasswordInput())
 
     class Meta:
         model = CustomUser
@@ -27,7 +27,7 @@ class SignUpForm(UserCreationForm):
 
 # class UserLoginForm(forms.Form):
 #     email = forms.EmailField(label="E-mail")
-#     password = forms.CharField(label="Пароль", strip=False, widget=forms.PasswordInput())
+#     password = forms.CharField(label="Password", strip=False, widget=forms.PasswordInput())
 #
 #     class Meta:
 #         model = CustomUser
